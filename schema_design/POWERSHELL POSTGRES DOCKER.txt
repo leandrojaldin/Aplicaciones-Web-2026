@@ -1,0 +1,98 @@
+POWERSHELL POSTGRES DOCKER
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\WINDOWS\system32> cd "F:\Aplicaciones Web 2026 6to\"
+PS F:\Aplicaciones Web 2026 6to> git pull origin main
+From https://github.com/leandrojaldin/Aplicaciones-Web-2026
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+PS F:\Aplicaciones Web 2026 6to> git checkout -b semana3-tareas
+Switched to a new branch 'semana3-tareas'
+PS F:\Aplicaciones Web 2026 6to> git remote -v
+origin  https://github.com/leandrojaldin/Aplicaciones-Web-2026.git (fetch)
+origin  https://github.com/leandrojaldin/Aplicaciones-Web-2026.git (push)
+PS F:\Aplicaciones Web 2026 6to> mkdir esquema-diseño
+
+
+    Directorio: F:\Aplicaciones Web 2026 6to
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         20/8/2026     19:57                esquema-diseño
+
+
+PS F:\Aplicaciones Web 2026 6to> Rename-Item "esquema-diseño" "schema_design"
+PS F:\Aplicaciones Web 2026 6to> cd .\schema_design\
+PS F:\Aplicaciones Web 2026 6to\schema_design> code .
+PS F:\Aplicaciones Web 2026 6to\schema_design> docker run -d --name postgres -p 5432:5432 -v $HOME/postgresql/data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=123qwe -e POSTGRES_USER=app -e POSTGRES_DB=movies_database postgres:16
+Unable to find image 'postgres:16' locally
+16: Pulling from library/postgres
+e6c3b63bdd87: Pull complete
+74c34431998c: Pull complete
+f16885bd597c: Pull complete
+32a162df1425: Pull complete
+3220d19f365a: Pull complete
+0418a1024c20: Pull complete
+82bf5df0bf96: Pull complete
+432b70e673ec: Pull complete
+4c85fe314a1e: Pull complete
+26c307b5e35a: Pull complete
+eff308662b50: Pull complete
+a4edcba0bccb: Pull complete
+1f24f03930f9: Pull complete
+05f63dbab933: Pull complete
+5b80ccd0906f: Download complete
+8448f202c3e8: Download complete
+Digest: sha256:e17e86066e5ef83e0952a9347f5c792b7ece00972e2aa787a6986f471b3dd3d5
+Status: Downloaded newer image for postgres:16
+fba44810753c192f574106463f44be965d81508c3f26baacbacfbc0a9c65f761
+PS F:\Aplicaciones Web 2026 6to\schema_design> ls
+
+
+    Directorio: F:\Aplicaciones Web 2026 6to\schema_design
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         20/8/2026     20:15           1502 restaurant_database.ddl
+
+
+PS F:\Aplicaciones Web 2026 6to\schema_design> ls
+
+
+    Directorio: F:\Aplicaciones Web 2026 6to\schema_design
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         20/8/2026     22:10           1216 explain_analyze_results.md
+-a----         20/8/2026     22:05            550 queries_evidence.txt.txt
+-a----         20/8/2026     20:15           1502 restaurant_database.ddl
+
+
+PS F:\Aplicaciones Web 2026 6to\schema_design> git add .
+PS F:\Aplicaciones Web 2026 6to\schema_design> git commit -m "Subiendo dll , query ejecutados , explicacion comparativa indices y sin indice"
+[semana3-tareas b86b778] Subiendo dll , query ejecutados , explicacion comparativa indices y sin indice
+ 3 files changed, 80 insertions(+)
+ create mode 100644 schema_design/explain_analyze_results.md
+ create mode 100644 schema_design/queries_evidence.txt.txt
+ create mode 100644 schema_design/restaurant_database.ddl
+PS F:\Aplicaciones Web 2026 6to\schema_design> git push origin semana3-tareas
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 20 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 1.81 KiB | 464.00 KiB/s, done.
+Total 6 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote:
+remote: Create a pull request for 'semana3-tareas' on GitHub by visiting:
+remote:      https://github.com/leandrojaldin/Aplicaciones-Web-2026/pull/new/semana3-tareas
+remote:
+To https://github.com/leandrojaldin/Aplicaciones-Web-2026.git
+ * [new branch]      semana3-tareas -> semana3-tareas
+PS F:\Aplicaciones Web 2026 6to\schema_design> docker ps
+CONTAINER ID   IMAGE         COMMAND                  CREATED             STATUS             PORTS                                         NAMES
+fba44810753c   postgres:16   "docker-entrypoint.s…"   About an hour ago   Up About an hour   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp   postgres
