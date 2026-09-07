@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}Lista de Restaurantes{% endblock %}
+
+{% block content %}
+    <h2>Sucursales Registradas</h2>
+    
+    {% if restaurantes %}
+        <ul>
+            {% for r in restaurantes %}
+                <li>
+                    <a href="{{ url_for('detalle_restaurante', restaurante_id=r.id) }}">
+                        <strong>{{ r.nombre }}</strong>
+                    </a> ({{ r.ciudad }})
+                    - Platos: {{ r.platos|length }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay restaurantes registrados en el sistema.</p>
+    {% endif %}
+{% endblock %}
