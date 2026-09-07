@@ -1,0 +1,19 @@
+queries_evidence.txt
+1. PRUEBA SIN ÍNDICE 
+DROP INDEX IF EXISTS content.clientes_fecha_creacion_idx;
+
+EXPLAIN ANALYZE
+SELECT * FROM content.clientes WHERE fecha_creacion = '2020-01-01';
+
+TIEMPO OBTENIDO: 7.526 ms
+TIPO DE ESCANEO: Seq Scan (Escaneo secuencial completo)
+
+
+2. PRUEBA CON ÍNDICE 
+CREATE INDEX clientes_fecha_creacion_idx ON content.clientes(fecha_creacion);
+
+EXPLAIN ANALYZE
+SELECT * FROM content.clientes WHERE fecha_creacion = '2020-01-01';
+
+TIEMPO OBTENIDO: 1.110 ms
+TIPO DE ESCANEO: Bitmap Index Scan / Index Scan
