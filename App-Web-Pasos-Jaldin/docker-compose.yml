@@ -10,6 +10,14 @@ services:
       db:
         condition: service_healthy
 
+  django:
+    build: ./django_app
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+
   db:
     image: postgres:16
     ports:
