@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}{% if restaurante %}Editar{% else %}Crear{% endif %} Sucursal{% endblock %}
+
+{% block content %}
+    <h2>{% if restaurante %}Editar Sucursal: {{ restaurante.nombre }}{% else %}Añadir Sucursal de La Casa del Gordo{% endif %}</h2>
+    
+    <form action="{{ url_for('editar_restaurante', restaurante_id=restaurante.id) if restaurante else url_for('crear_restaurante') }}" method="POST">
+        
+        <label for="nombre">Nombre (obligatorio):</label><br>
+        <input type="text" id="nombre" name="nombre" value="{{ restaurante.nombre if restaurante else '' }}" required><br><br>
+
+        <label for="ciudad">Ciudad (obligatorio):</label><br>
+        <input type="text" id="ciudad" name="ciudad" value="{{ restaurante.ciudad if restaurante else '' }}" required><br><br>
+
+        <label for="direccion">Dirección:</label><br>
+        <input type="text" id="direccion" name="direccion" value="{{ restaurante.direccion if restaurante else '' }}"><br><br>
+
+        <label for="telefono">Teléfono:</label><br>
+        <input type="text" id="telefono" name="telefono" value="{{ restaurante.telefono if restaurante else '' }}"><br><br>
+
+        <button type="submit">Guardar Sucursal</button>
+    </form>
+    <br>
+    <a href="{{ url_for('listar_restaurantes') }}">Volver al listado</a>
+{% endblock %}
