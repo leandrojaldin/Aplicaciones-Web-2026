@@ -1,0 +1,33 @@
+<! DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset = "UFT-8">
+    <meta name="VIEPORT" content="width=device-width, initial-scake=1.0">
+    <title>{% block title %}La Carta - Administrador{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Administración de La Carta</h1>
+        <nav>
+            <a href="{{ url_for('listar_restaurantes') }}">Ver Restaurantes</a>
+            <a href="{{ url_for('crear_restaurante') }}">Crear Restaurante</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Zona obligatoria de mensajes flash -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li><b>{{ message }}</b></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Aquí se inyectan las demás páginas -->
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

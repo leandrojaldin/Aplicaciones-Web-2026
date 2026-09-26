@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- El título cambia dependiendo de si estamos creando o editando -->
+    <h2>{% if restaurante %}Editar Restaurante{% else %}Nuevo Restaurante{% endif %}</h2>
+
+    <!-- El action decide a qué ruta de app.py se envían los datos -->
+    <form action="{{ url_for('editar_restaurante', restaurante_id=restaurante.id) if restaurante else url_for('crear_restaurante') }}" method="POST">
+        
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del Restaurante *</label>
+            <!-- El atributo name="nombre" es vital para request.form['nombre'] -->
+            <input type="text" class="form-control" id="nombre" name="nombre" 
+                   value="{{ restaurante.nombre if restaurante else '' }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="ciudad" class="form-label">Ciudad *</label>
+            <input type="text" class="form-control" id="ciudad" name="ciudad" 
+                   value="{{ restaurante.ciudad if restaurante else '' }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="direccion" name="direccion" 
+                   value="{{ restaurante.direccion if restaurante else '' }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" id="telefono" name="telefono" 
+                   value="{{ restaurante.telefono if restaurante else '' }}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{{ url_for('listar_restaurantes') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

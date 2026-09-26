@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Administración de Restaurantes</h2>
+    
+    <!-- Este botón llama a la ruta GET de crear -->
+    <a href="{{ url_for('crear_restaurante') }}" class="btn btn-primary mb-3">Registrar Nuevo Restaurante</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Ciudad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Este ciclo FOR lee la lista que le mandó app.py -->
+            {% for r in restaurantes %}
+            <tr>
+                <td>{{ r.id }}</td>
+                <td>{{ r.nombre }}</td>
+                <td>{{ r.ciudad }}</td>
+                <td>
+                    <!-- Botón para Editar (GET) -->
+                    <a href="{{ url_for('editar_restaurante', restaurante_id=r.id) }}" class="btn btn-warning btn-sm">Editar</a>
+
+                    <form action="{{ url_for('eliminar_restaurante', restaurante_id=r.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminarlo?');">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <!-- Si no hay nada en la BD, muestra este mensaje -->
+                <td colspan="4" class="text-center">No hay restaurantes registrados en el sistema.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
