@@ -1,8 +1,6 @@
 services:
   web:
     build: .
-    ports:
-      - "8000:8000"
     environment:
       DATABASE_URL: postgresql+psycopg2://lacarta:${POSTGRES_PASSWORD}@db:5432/lacarta
       SECRET_KEY: ${SECRET_KEY}
@@ -12,11 +10,25 @@ services:
 
   django:
     build: ./django_app
-    ports:
-      - "5000:5000"
+    environment:
+      - DB_NAME=lacarta
+      - DB_USER=lacarta
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_HOST=db
+      - DB_PORT=5432
     depends_on:
       db:
         condition: service_healthy
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - web
+      - django
 
   db:
     image: postgres:16
